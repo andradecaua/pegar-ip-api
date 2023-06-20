@@ -1,4 +1,4 @@
-package pegarIp
+package model
 
 import (
 	"net"

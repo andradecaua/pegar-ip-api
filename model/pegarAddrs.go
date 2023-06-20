@@ -1,4 +1,4 @@
-package pegarNameServer
+package model
 
 import (
 	"net"
