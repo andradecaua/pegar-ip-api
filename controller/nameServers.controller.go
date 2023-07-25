@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"pegar-ip-ou-addr/model"
@@ -63,4 +64,10 @@ func NameServerController(resWriter http.ResponseWriter, req *http.Request) {
 		}
 
 	}
+
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Print("teste")
+		}
+	}()
 }

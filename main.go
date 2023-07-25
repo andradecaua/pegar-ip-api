@@ -17,4 +17,5 @@ func main() {
 	http.HandleFunc("/v1/get-nameservers", controller.NameServerController)
 
 	log.Fatal(server.ListenAndServe(), nil)
+
 }
