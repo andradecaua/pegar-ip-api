@@ -1,12 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Net Api</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            display: grid;
+            margin: 0;
+        }
+        header{
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            background-color: #161616;
+            color: white;
+            display: grid;
+            height: 180px;
+        }
+        .section_route{
+            display: grid;
+            grid-template-columns: 50% 50%;
+            width: 100%;
+            height: 200px;
+        }
+        .code_space{
+            display: flex;
+            color: white;
+            background-color: #161616;
+            height: 80px;
+            width: 500px;
+            border-radius: 10px;
+            grid-column: 2;
+            justify-self: center;
+            align-self: center;
+            font-size: 13px;
+            text-align: center;
+            vertical-align: middle;
+            align-items: center;
+            justify-content: center;
+        }   
+    </style>
 </head>
 <body>
-    Hello world
+    <header>
+        <h1 style="margin-left: 20px; align-self: flex-end; margin-bottom: 0; font-size: 60px;">Net api</h1>
+        <span style="margin-left: 20px; align-self: flex-start; font-weight: bold;">Documentação</span>
+    </header>
+    <main style="display: grid">
+        <h3 style="text-align: left; font-size: 30px; width: 800px; justify-self: center;">
+            Essa api serve para pegar os IP do endereço informado em url e também para pegar os nameservers, estarei mostrando as rotas logo abaixo
+        </h3>
+        <section class="section_route">
+            <div style="justify-self: center; width: 500px; align-self: center;">
+                <h4 style="font-size: 26px; margin-bottom: 0;">Rota get-ip</h4>
+                <span style="font-size: 20px;">
+                    Para utilizar essa rota deve se informar o endereço url utilizando a query url e com o endereço informado entre aspas simples 
+                </span>
+            </div>
+            <code class="code_space">
+                <span style="background-color: rgba(110,118,129,0.4); font-weight: bold; font-size: 14px; height: 35px; border-radius: 10px; display: flex; align-items: center;">https://pegar-ip-api.com/v1/get-ip?url='google.com.br'</span>
+            </code>
+        </section>
+        <section class="section_route">
+            <div style="justify-self: center; width: 500px; align-self: center;">
+                <h4 style="font-size: 26px; margin-bottom: 0;">Rota get-nameservers</h4>
+                <span style="font-size: 20px;">
+                    Para utilizar essa rota deve se informar o endereço url utilizando a query url e com o endereço informado entre aspas simples
+                </span>
+            </div>
+            <code class="code_space">
+                <span style="background-color: rgba(110,118,129,0.4); font-weight: bold; font-size: 14px; height: 35px; border-radius: 10px; display: flex; align-items: center;">https://pegar-ip-api.com/v1/get-nameservers?url='google.com.br'</span>
+            </code>
+        </section>
+    </main>
 </body>
 </html>
