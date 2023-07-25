@@ -9,7 +9,7 @@ import (
 func main() {
 
 	server := &http.Server{
-		Addr: ":3000",
+		Addr: ":80",
 	}
 
 	http.HandleFunc("/index", controller.IndexControler)

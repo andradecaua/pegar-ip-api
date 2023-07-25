@@ -3,7 +3,6 @@ package controller
 import (
 	"encoding/json"
 	"io"
-	"log"
 	"net/http"
 	"pegar-ip-ou-addr/model"
 	"strings"
@@ -22,7 +21,9 @@ func NameServerController(resWriter http.ResponseWriter, req *http.Request) {
 		}
 		resJSON, err := json.Marshal(res)
 		if err != nil {
-			log.Fatal(err)
+			resWriter.Header().Set("Content-Type", "application/json")
+			resWriter.WriteHeader(500)
+			resWriter.Write([]byte(""))
 		}
 		resWriter.Write(resJSON)
 	}
