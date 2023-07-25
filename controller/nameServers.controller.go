@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"pegar-ip-ou-addr/model"
@@ -30,44 +29,43 @@ func NameServerController(resWriter http.ResponseWriter, req *http.Request) {
 	}
 
 	url := req.URL.Query().Get("url")
-	urlTransform := strings.Split(url, "'")
-	url = urlTransform[1]
+	if strings.Index(url, "'") == 0 && strings.LastIndex(url, "'") == (len(url)-1) {
+		urlTransform := strings.Split(url, "'")
+		url = urlTransform[1]
+		nameServers, err := model.PegarNameServer(url)
 
-	nameServers, err := model.PegarNameServer(url)
+		if err != nil {
 
-	if err != nil {
+			var res response = response{
+				Status:  403,
+				Message: "Ouve um erro pegar o name server",
+			}
+			resJSON, errConvertJSON := json.Marshal(res)
 
-		var res response = response{
-			Status:  403,
-			Message: "Ouve um erro pegar o name server",
-		}
-		resJSON, errConvertJSON := json.Marshal(res)
+			if errConvertJSON != nil {
+				resWriter.WriteHeader(500)
+				resWriter.Write([]byte("Ouve um erro ao converter para JSON sua resposta"))
+			}
 
-		if errConvertJSON != nil {
-			resWriter.WriteHeader(500)
-			resWriter.Write([]byte("Ouve um erro ao converter para JSON sua resposta"))
-		}
+			resWriter.WriteHeader(403)
+			resWriter.Write(resJSON)
 
-		resWriter.WriteHeader(403)
-		resWriter.Write(resJSON)
-
-	} else {
-		dataJSON, errConverter := json.Marshal(nameServers)
-
-		if errConverter != nil {
-			resWriter.WriteHeader(400)
-			io.WriteString(resWriter, "Não fo possível converter para JSON")
 		} else {
-			resWriter.WriteHeader(200)
-			resWriter.Header().Set("ContentType", "application/json")
-			resWriter.Write(dataJSON)
-		}
+			dataJSON, errConverter := json.Marshal(nameServers)
 
+			if errConverter != nil {
+				resWriter.WriteHeader(400)
+				io.WriteString(resWriter, "Não fo possível converter para JSON")
+			} else {
+				resWriter.WriteHeader(200)
+				resWriter.Header().Set("ContentType", "application/json")
+				resWriter.Write(dataJSON)
+			}
+
+		}
+	} else {
+		resWriter.WriteHeader(403)
+		resWriter.Header().Set("Content-Type", "application/json")
+		resWriter.Write([]byte(`{"message": "Por gentileza enviar a rquest da maneira correta"}`))
 	}
-
-	defer func() {
-		if r := recover(); r != nil {
-			fmt.Print("teste")
-		}
-	}()
 }
